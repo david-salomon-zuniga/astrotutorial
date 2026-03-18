@@ -10,11 +10,14 @@ import { z } from 'astro/zod';
 // 4. Define a `loader` and `schema` for each collection
 const articles = defineCollection({
     loader: glob({ base: './src/content/articles', pattern: '**/*.{md,mdx}' }),
-    schema: z.object({
+    schema: ({ image }) => z.object({
         title: z.string(),
+        slug: z.string(),
         description: z.string(),
         published: z.coerce.date(),
         author: z.string(),
+        // This tells Astro to resolve the path relative to the .md file
+        image: image(),
         tech: z.array(z.string()),
         url: z.string()
     }),

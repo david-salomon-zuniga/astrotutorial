@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import "@/styles/starwind.css";
 import {
     Card,
@@ -13,22 +14,27 @@ import { Button } from "@/components/starwind/button";
 const { project, buttonText } = Astro.props;
 ---
 
-<Card class="w-[360px]" slot="preview">
+<Card class="w-[400px]" slot="preview">
     <CardHeader>
         <CardTitle>{project.data.title}</CardTitle>
         <CardDescription>
+            <Image
+                class="object-cover h-32 rounded-md w-full"
+                src={project.data.image}
+                alt="urban city img1"
+            />
             <span>{project.data.author}</span>
             <small>{project.data.published}</small>
             <h2>{project.data.description}</h2>
         </CardDescription>
     </CardHeader>
     <CardContent class="flex flex-col gap-4">
-        <div class="flex x-full flex-col gap-2">
+        <div class="flex w-full flex-col gap-2">
             <slot />
         </div>
     </CardContent>
 
     <CardFooter class="flex justify-between">
-        <Button>{buttonText}</Button>
+        <Button href={`/articles/${project.data.slug}`}>{buttonText}</Button>
     </CardFooter>
 </Card>
